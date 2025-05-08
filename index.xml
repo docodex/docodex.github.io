@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>DoCodeX</title>
+    <link>https://docodex.github.io/</link>
+    <description>Recent content on DoCodeX</description>
+    <generator>Hugo -- 0.147.1</generator>
+    <language>en</language>
+    <copyright>DoCodeX</copyright>
+    <lastBuildDate>Tue, 29 Apr 2025 09:47:30 +0800</lastBuildDate>
+    <atom:link href="https://docodex.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Install / Update PaperMod</title>
+      <link>https://docodex.github.io/posts/papermod/papermod-installation/</link>
+      <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>https://docodex.github.io/posts/papermod/papermod-installation/</guid>
+      <description>Read aboout Install and Update instructions and sampled configuration templates</description>
+    </item>
+    <item>
+      <title>Features / Mods</title>
+      <link>https://docodex.github.io/posts/papermod/papermod-features/</link>
+      <pubDate>Wed, 20 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>https://docodex.github.io/posts/papermod/papermod-features/</guid>
+      <description>Learn About All Features in PaperMod</description>
+    </item>
+    <item>
+      <title>VSCode Keymap for Mac</title>
+      <link>https://docodex.github.io/posts/tips/vscode-keymap-for-mac/</link>
+      <pubDate>Tue, 29 Apr 2025 09:47:30 +0800</pubDate>
+      <guid>https://docodex.github.io/posts/tips/vscode-keymap-for-mac/</guid>
+      <description>List of almost all VSCode keymap for mac</description>
+    </item>
+    <item>
+      <title>Welcome to Git</title>
+      <link>https://docodex.github.io/posts/tips/welcome-to-git/</link>
+      <pubDate>Sat, 19 Apr 2025 20:12:48 +0800</pubDate>
+      <guid>https://docodex.github.io/posts/tips/welcome-to-git/</guid>
+      <description>Git tips</description>
+    </item>
+    <item>
+      <title>Markdown Syntax Guide</title>
+      <link>https://docodex.github.io/posts/markdown/markdown-syntax/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>https://docodex.github.io/posts/markdown/markdown-syntax/</guid>
+      <description>Sample article showcasing basic Markdown syntax and formatting for HTML elements.</description>
+    </item>
+    <item>
+      <title>Markdown Syntax Guide For L2</title>
+      <link>https://docodex.github.io/posts/markdown/markdown-syntax.fr/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>https://docodex.github.io/posts/markdown/markdown-syntax.fr/</guid>
+      <description>Sample article showcasing basic Markdown syntax and formatting for HTML elements.</description>
+    </item>
+    <item>
+      <title>Markdown Syntax Guide For RTL</title>
+      <link>https://docodex.github.io/posts/markdown/markdown-syntax.fa/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>https://docodex.github.io/posts/markdown/markdown-syntax.fa/</guid>
+      <description>Sample article showcasing basic Markdown syntax and formatting for HTML elements.</description>
+    </item>
+    <item>
+      <title>Code Syntax Guide</title>
+      <link>https://docodex.github.io/posts/markdown/code_syntax/</link>
+      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>https://docodex.github.io/posts/markdown/code_syntax/</guid>
+      <description>Sample article showcasing basic code syntax and formatting for HTML elements.</description>
+    </item>
+    <item>
+      <title>Rich Content and Shortcodes</title>
+      <link>https://docodex.github.io/posts/markdown/rich-content/</link>
+      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>https://docodex.github.io/posts/markdown/rich-content/</guid>
+      <description>A brief description of Hugo Shortcodes</description>
+    </item>
+    <item>
+      <title>Math Typesetting</title>
+      <link>https://docodex.github.io/posts/markdown/math-typesetting/</link>
+      <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>https://docodex.github.io/posts/markdown/math-typesetting/</guid>
+      <description>A brief guide to setup KaTeX</description>
+    </item>
+    <item>
+      <title>Emoji Support</title>
+      <link>https://docodex.github.io/posts/markdown/emoji-support/</link>
+      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>https://docodex.github.io/posts/markdown/emoji-support/</guid>
+      <description>Guide to emoji usage in Hugo</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>https://docodex.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://docodex.github.io/about/</guid>
+      <description>about</description>
+    </item>
+  </channel>
+</rss>
