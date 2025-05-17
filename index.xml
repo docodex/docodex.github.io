@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>DoCodeX</title>
+    <link>https://docodex.github.io/</link>
+    <description>Recent content on DoCodeX</description>
+    <image>
+      <title>DoCodeX</title>
+      <url>https://docodex.github.io/images/favicon.jpg</url>
+      <link>https://docodex.github.io/images/favicon.jpg</link>
+    </image>
+    <generator>Hugo -- 0.147.3</generator>
+    <language>en-us</language>
+    <copyright>DoCodeX</copyright>
+    <lastBuildDate>Thu, 15 May 2025 16:16:19 +0800</lastBuildDate>
+    <atom:link href="https://docodex.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数字编码</title>
+      <link>https://docodex.github.io/posts/tech/fundamental/number/</link>
+      <pubDate>Thu, 15 May 2025 16:16:19 +0800</pubDate>
+      <guid>https://docodex.github.io/posts/tech/fundamental/number/</guid>
+      <description>&lt;p&gt;在计算机基础中，原码、反码、补码和移码都是用于表示和处理有符号整数的编码方式。它们各自具有不同的定义和用途。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;原码直接使用二进制表示数值，并用最高位表示符号位（0 表示正数，1 表示负数）。&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;正数的原码是其二进制本身；负数的原码是符号位为 1，数值部分取其绝对值的二进制。例如，使用 8 位二进制表示，+3 的原码为 00000011，-3 的原码为 10000011。&lt;/li&gt;
+&lt;li&gt;原码的优点是直观，容易理解。然而，原码的缺点是加法和减法运算复杂，需要额外的规则来处理符号位。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;反码是将正数保持不变，负数按位取反（符号位不变）。符号位仍然存在，仍然用最高位表示。&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;正数的反码和原码相同；负数是符号位为 1，其它位是原码取反。例如，+3 的反码仍为 00000011，-3 的反码为 11111100。&lt;/li&gt;
+&lt;li&gt;反码的优点是加减法运算规则简单，只需对应位相加并进位。然而，反码的缺点是存在两个零值：正零和负零。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;补码是将反码中的正数保持不变，负数按位取反（符号位不变）再加 1。符号位仍然存在，仍然用最高位表示。&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;为了解决反码的正零和负零问题，补码被引入。&lt;/li&gt;
+&lt;li&gt;正数的补码和原码，反码相同；负数是符号位为 1，其它位是原码取反，末位加 1。例如，+3 的补码仍为 00000011，-3 的补码为 11111101。&lt;/li&gt;
+&lt;li&gt;补码的优点是只有一个零值，可以直接进行加减运算，而不需要额外的规则。补码还有一个重要的特性是能够通过减法运算实现加法，从而简化了计算机的逻辑电路设计。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;用一张图表示如下：
+&lt;img loading=&#34;lazy&#34; src=&#34;./number_1.png&#34; alt=&#34;原码、反码、补码&#34;  /&gt;
+&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>VSCode Keymap for Mac</title>
+      <link>https://docodex.github.io/posts/tips/vscode-keymap-for-mac/</link>
+      <pubDate>Tue, 29 Apr 2025 09:47:30 +0800</pubDate>
+      <guid>https://docodex.github.io/posts/tips/vscode-keymap-for-mac/</guid>
+      <description>List of almost all VSCode keymap for mac</description>
+    </item>
+    <item>
+      <title>Welcome to Git</title>
+      <link>https://docodex.github.io/posts/tips/welcome-to-git/</link>
+      <pubDate>Sat, 19 Apr 2025 20:12:48 +0800</pubDate>
+      <guid>https://docodex.github.io/posts/tips/welcome-to-git/</guid>
+      <description>Git tips</description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>https://docodex.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://docodex.github.io/about/</guid>
+      <description>about</description>
+    </item>
+  </channel>
+</rss>
