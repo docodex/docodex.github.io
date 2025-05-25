@@ -1,0 +1,547 @@
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Go 常用命令 | DoCodeX</title><meta name=keywords content="Golang,Tips"><meta name=description content='$ go help
+Go is a tool for managing Go source code.
+
+Usage:
+
+	go <command> [arguments]
+
+The commands are:
+
+	bug         start a bug report
+	build       compile packages and dependencies
+	clean       remove object files and cached files
+	doc         show documentation for package or symbol
+	env         print Go environment information
+	fix         update packages to use new APIs
+	fmt         gofmt (reformat) package sources
+	generate    generate Go files by processing source
+	get         add dependencies to current module and install them
+	install     compile and install packages and dependencies
+	list        list packages or modules
+	mod         module maintenance
+	work        workspace maintenance
+	run         compile and run Go program
+	telemetry   manage telemetry data and settings
+	test        test packages
+	tool        run specified go tool
+	version     print Go version
+	vet         report likely mistakes in packages
+
+Use "go help <command>" for more information about a command.
+
+Additional help topics:
+
+	buildconstraint build constraints
+	buildmode       build modes
+	c               calling between Go and C
+	cache           build and test caching
+	environment     environment variables
+	filetype        file types
+	go.mod          the go.mod file
+	gopath          GOPATH environment variable
+	goproxy         module proxy protocol
+	importpath      import path syntax
+	modules         modules, module versions, and more
+	module-auth     module authentication using go.sum
+	packages        package lists and patterns
+	private         configuration for downloading non-public code
+	testflag        testing flags
+	testfunc        testing functions
+	vcs             controlling version control with GOVCS
+
+Use "go help <topic>" for more information about that topic.
+通用选项
+
+  
+      
+          选项
+          作用
+      
+  
+  
+      
+          -a
+          用于强制重新编译所有涉及的 Go 语言代码包（包括 Go 语言标准库中的代码包），即使它们已经是最新的了。该标记可以让我们有机会通过改动底层的代码包做一些实验。
+      
+      
+          -n
+          使命令仅打印其执行过程中用到的所有命令，而不去真正执行它们。如果只想查看或者验证命令的执行过程，而不想改变任何东西，使用它正好合适。
+      
+      
+          -v
+          用于打印命令执行过程中涉及的代码包（列出被编译的代码包名称）。这一定包括我们指定的目标代码包，并且有时还会包括该代码包直接或间接依赖的那些代码包。这会让你知道哪些代码包被执行过了。
+      
+      
+          -work
+          用于打印命令执行时生成和使用的临时工作目录的名字，且命令执行完成后不删除它。这个目录下的文件可能会对你有用，也可以从侧面了解命令的执行过程。如果不添加此标记，那么临时工作目录会在命令执行完毕前删除。
+      
+      
+          -x
+          使命令打印其执行过程中用到的所有命令，并同时执行它们。（而-n参数是不真正执行它们）
+      
+      
+          -race
+          用于检测并报告指定 Go 语言程序中存在的数据竞争问题。当用 Go 语言编写并发程序的时候，这是很重要的检测手段之一。
+      
+  
+
+go run
+go run命令用于编译并运行 Go 程序。'><meta name=author content="Me"><link rel=canonical href=https://docodex.github.io/posts/tech/go-cmd/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.0ccf4946df3c5f4c67d6fe284f2f8d9aaa694acf7aadb3917e4bc9d9f34739d3.css integrity="sha256-DM9JRt88X0xn1v4oTy+NmqppSs96rbORfkvJ2fNHOdM=" rel="preload stylesheet" as=style><link rel=icon href=https://docodex.github.io/images/favicon.jpg><link rel=icon type=image/png sizes=16x16 href=https://docodex.github.io/images/favicon.jpg><link rel=icon type=image/png sizes=32x32 href=https://docodex.github.io/images/favicon.jpg><link rel=apple-touch-icon href=https://docodex.github.io/images/favicon.jpg><link rel=mask-icon href=https://docodex.github.io/images/favicon.jpg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://docodex.github.io/posts/tech/go-cmd/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:title" content="Go 常用命令"><meta property="og:description" content='$ go help
+Go is a tool for managing Go source code.
+
+Usage:
+
+	go <command> [arguments]
+
+The commands are:
+
+	bug         start a bug report
+	build       compile packages and dependencies
+	clean       remove object files and cached files
+	doc         show documentation for package or symbol
+	env         print Go environment information
+	fix         update packages to use new APIs
+	fmt         gofmt (reformat) package sources
+	generate    generate Go files by processing source
+	get         add dependencies to current module and install them
+	install     compile and install packages and dependencies
+	list        list packages or modules
+	mod         module maintenance
+	work        workspace maintenance
+	run         compile and run Go program
+	telemetry   manage telemetry data and settings
+	test        test packages
+	tool        run specified go tool
+	version     print Go version
+	vet         report likely mistakes in packages
+
+Use "go help <command>" for more information about a command.
+
+Additional help topics:
+
+	buildconstraint build constraints
+	buildmode       build modes
+	c               calling between Go and C
+	cache           build and test caching
+	environment     environment variables
+	filetype        file types
+	go.mod          the go.mod file
+	gopath          GOPATH environment variable
+	goproxy         module proxy protocol
+	importpath      import path syntax
+	modules         modules, module versions, and more
+	module-auth     module authentication using go.sum
+	packages        package lists and patterns
+	private         configuration for downloading non-public code
+	testflag        testing flags
+	testfunc        testing functions
+	vcs             controlling version control with GOVCS
+
+Use "go help <topic>" for more information about that topic.
+通用选项
+
+  
+      
+          选项
+          作用
+      
+  
+  
+      
+          -a
+          用于强制重新编译所有涉及的 Go 语言代码包（包括 Go 语言标准库中的代码包），即使它们已经是最新的了。该标记可以让我们有机会通过改动底层的代码包做一些实验。
+      
+      
+          -n
+          使命令仅打印其执行过程中用到的所有命令，而不去真正执行它们。如果只想查看或者验证命令的执行过程，而不想改变任何东西，使用它正好合适。
+      
+      
+          -v
+          用于打印命令执行过程中涉及的代码包（列出被编译的代码包名称）。这一定包括我们指定的目标代码包，并且有时还会包括该代码包直接或间接依赖的那些代码包。这会让你知道哪些代码包被执行过了。
+      
+      
+          -work
+          用于打印命令执行时生成和使用的临时工作目录的名字，且命令执行完成后不删除它。这个目录下的文件可能会对你有用，也可以从侧面了解命令的执行过程。如果不添加此标记，那么临时工作目录会在命令执行完毕前删除。
+      
+      
+          -x
+          使命令打印其执行过程中用到的所有命令，并同时执行它们。（而-n参数是不真正执行它们）
+      
+      
+          -race
+          用于检测并报告指定 Go 语言程序中存在的数据竞争问题。当用 Go 语言编写并发程序的时候，这是很重要的检测手段之一。
+      
+  
+
+go run
+go run命令用于编译并运行 Go 程序。'><meta property="og:type" content="article"><meta property="og:url" content="https://docodex.github.io/posts/tech/go-cmd/"><meta property="og:image" content="https://docodex.github.io/images/favicon.jpg"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-05-23T16:52:52+08:00"><meta property="article:modified_time" content="2025-05-23T16:52:52+08:00"><meta property="og:site_name" content="DoCodeX"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://docodex.github.io/images/favicon.jpg"><meta name=twitter:title content="Go 常用命令"><meta name=twitter:description content='$ go help
+Go is a tool for managing Go source code.
+
+Usage:
+
+	go <command> [arguments]
+
+The commands are:
+
+	bug         start a bug report
+	build       compile packages and dependencies
+	clean       remove object files and cached files
+	doc         show documentation for package or symbol
+	env         print Go environment information
+	fix         update packages to use new APIs
+	fmt         gofmt (reformat) package sources
+	generate    generate Go files by processing source
+	get         add dependencies to current module and install them
+	install     compile and install packages and dependencies
+	list        list packages or modules
+	mod         module maintenance
+	work        workspace maintenance
+	run         compile and run Go program
+	telemetry   manage telemetry data and settings
+	test        test packages
+	tool        run specified go tool
+	version     print Go version
+	vet         report likely mistakes in packages
+
+Use "go help <command>" for more information about a command.
+
+Additional help topics:
+
+	buildconstraint build constraints
+	buildmode       build modes
+	c               calling between Go and C
+	cache           build and test caching
+	environment     environment variables
+	filetype        file types
+	go.mod          the go.mod file
+	gopath          GOPATH environment variable
+	goproxy         module proxy protocol
+	importpath      import path syntax
+	modules         modules, module versions, and more
+	module-auth     module authentication using go.sum
+	packages        package lists and patterns
+	private         configuration for downloading non-public code
+	testflag        testing flags
+	testfunc        testing functions
+	vcs             controlling version control with GOVCS
+
+Use "go help <topic>" for more information about that topic.
+通用选项
+
+  
+      
+          选项
+          作用
+      
+  
+  
+      
+          -a
+          用于强制重新编译所有涉及的 Go 语言代码包（包括 Go 语言标准库中的代码包），即使它们已经是最新的了。该标记可以让我们有机会通过改动底层的代码包做一些实验。
+      
+      
+          -n
+          使命令仅打印其执行过程中用到的所有命令，而不去真正执行它们。如果只想查看或者验证命令的执行过程，而不想改变任何东西，使用它正好合适。
+      
+      
+          -v
+          用于打印命令执行过程中涉及的代码包（列出被编译的代码包名称）。这一定包括我们指定的目标代码包，并且有时还会包括该代码包直接或间接依赖的那些代码包。这会让你知道哪些代码包被执行过了。
+      
+      
+          -work
+          用于打印命令执行时生成和使用的临时工作目录的名字，且命令执行完成后不删除它。这个目录下的文件可能会对你有用，也可以从侧面了解命令的执行过程。如果不添加此标记，那么临时工作目录会在命令执行完毕前删除。
+      
+      
+          -x
+          使命令打印其执行过程中用到的所有命令，并同时执行它们。（而-n参数是不真正执行它们）
+      
+      
+          -race
+          用于检测并报告指定 Go 语言程序中存在的数据竞争问题。当用 Go 语言编写并发程序的时候，这是很重要的检测手段之一。
+      
+  
+
+go run
+go run命令用于编译并运行 Go 程序。'><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://docodex.github.io/posts/"},{"@type":"ListItem","position":2,"name":"技术","item":"https://docodex.github.io/posts/tech/"},{"@type":"ListItem","position":3,"name":"Go 常用命令","item":"https://docodex.github.io/posts/tech/go-cmd/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Go 常用命令","name":"Go 常用命令","description":"$ go help Go is a tool for managing Go source code. Usage: go \u0026lt;command\u0026gt; [arguments] The commands are: bug start a bug report build compile packages and dependencies clean remove object files and cached files doc show documentation for package or symbol env print Go environment information fix update packages to use new APIs fmt gofmt (reformat) package sources generate generate Go files by processing source get add dependencies to current module and install them install compile and install packages and dependencies list list packages or modules mod module maintenance work workspace maintenance run compile and run Go program telemetry manage telemetry data and settings test test packages tool run specified go tool version print Go version vet report likely mistakes in packages Use \u0026#34;go help \u0026lt;command\u0026gt;\u0026#34; for more information about a command. Additional help topics: buildconstraint build constraints buildmode build modes c calling between Go and C cache build and test caching environment environment variables filetype file types go.mod the go.mod file gopath GOPATH environment variable goproxy module proxy protocol importpath import path syntax modules modules, module versions, and more module-auth module authentication using go.sum packages package lists and patterns private configuration for downloading non-public code testflag testing flags testfunc testing functions vcs controlling version control with GOVCS Use \u0026#34;go help \u0026lt;topic\u0026gt;\u0026#34; for more information about that topic. 通用选项 选项 作用 -a 用于强制重新编译所有涉及的 Go 语言代码包（包括 Go 语言标准库中的代码包），即使它们已经是最新的了。该标记可以让我们有机会通过改动底层的代码包做一些实验。 -n 使命令仅打印其执行过程中用到的所有命令，而不去真正执行它们。如果只想查看或者验证命令的执行过程，而不想改变任何东西，使用它正好合适。 -v 用于打印命令执行过程中涉及的代码包（列出被编译的代码包名称）。这一定包括我们指定的目标代码包，并且有时还会包括该代码包直接或间接依赖的那些代码包。这会让你知道哪些代码包被执行过了。 -work 用于打印命令执行时生成和使用的临时工作目录的名字，且命令执行完成后不删除它。这个目录下的文件可能会对你有用，也可以从侧面了解命令的执行过程。如果不添加此标记，那么临时工作目录会在命令执行完毕前删除。 -x 使命令打印其执行过程中用到的所有命令，并同时执行它们。（而-n参数是不真正执行它们） -race 用于检测并报告指定 Go 语言程序中存在的数据竞争问题。当用 Go 语言编写并发程序的时候，这是很重要的检测手段之一。 go run go run命令用于编译并运行 Go 程序。\n","keywords":["Golang","Tips"],"articleBody":"$ go help Go is a tool for managing Go source code. Usage: go [arguments] The commands are: bug start a bug report build compile packages and dependencies clean remove object files and cached files doc show documentation for package or symbol env print Go environment information fix update packages to use new APIs fmt gofmt (reformat) package sources generate generate Go files by processing source get add dependencies to current module and install them install compile and install packages and dependencies list list packages or modules mod module maintenance work workspace maintenance run compile and run Go program telemetry manage telemetry data and settings test test packages tool run specified go tool version print Go version vet report likely mistakes in packages Use \"go help \" for more information about a command. Additional help topics: buildconstraint build constraints buildmode build modes c calling between Go and C cache build and test caching environment environment variables filetype file types go.mod the go.mod file gopath GOPATH environment variable goproxy module proxy protocol importpath import path syntax modules modules, module versions, and more module-auth module authentication using go.sum packages package lists and patterns private configuration for downloading non-public code testflag testing flags testfunc testing functions vcs controlling version control with GOVCS Use \"go help \" for more information about that topic. 通用选项 选项 作用 -a 用于强制重新编译所有涉及的 Go 语言代码包（包括 Go 语言标准库中的代码包），即使它们已经是最新的了。该标记可以让我们有机会通过改动底层的代码包做一些实验。 -n 使命令仅打印其执行过程中用到的所有命令，而不去真正执行它们。如果只想查看或者验证命令的执行过程，而不想改变任何东西，使用它正好合适。 -v 用于打印命令执行过程中涉及的代码包（列出被编译的代码包名称）。这一定包括我们指定的目标代码包，并且有时还会包括该代码包直接或间接依赖的那些代码包。这会让你知道哪些代码包被执行过了。 -work 用于打印命令执行时生成和使用的临时工作目录的名字，且命令执行完成后不删除它。这个目录下的文件可能会对你有用，也可以从侧面了解命令的执行过程。如果不添加此标记，那么临时工作目录会在命令执行完毕前删除。 -x 使命令打印其执行过程中用到的所有命令，并同时执行它们。（而-n参数是不真正执行它们） -race 用于检测并报告指定 Go 语言程序中存在的数据竞争问题。当用 Go 语言编写并发程序的时候，这是很重要的检测手段之一。 go run go run命令用于编译并运行 Go 程序。\ngo run命令专门用来运行命令源码文件。 注意，这个命令不是用来运行所有 Go 的源码文件的！\ngo run命令只能接受一个命令源码文件以及若干个库源码文件（必须同属于main包）作为文件参数，且不能接受测试源码文件。它在执行时会检查源码文件的类型。如果参数中有多个或者没有命令源码文件，那么go run命令就只会打印错误提示信息并退出，而不会继续执行。\ngo run命令会先编译作为文件参数的源码文件，将他们的编译结果，放到一个临时文件夹中，然后再去运行这个编译的结果，这个编译结果包括命令源码文件被编译后生成的可执行文件以及相关库源码文件编译后生成的归档文件。\n下面来看看go run具体做了什么？\n1. 准备如下代码main.go\npackage main import \"fmt\" func main() { fmt.Println(\"Hello World!\") fmt.Println(\"Test command: go run\") } 2. go run配合-n\n执行：\n$ go run -n main.go 输出：\n# # command-line-arguments # mkdir -p $WORK/b001/ cat \u003e$WORK/b001/importcfg \u003c\u003c 'EOF' # internal # import config packagefile fmt=/Users/xxx/Library/Caches/go-build/f0/f06adbb2b63f00d9707b9f6cde4112bebf661eda9f148ebf53a9d97d65d6d172-d packagefile runtime=/Users/xxx/Library/Caches/go-build/3f/3fd07ccfb543f52c4ae7929592c5a13bef8fce045bb00fcc31e834325c5be513-d EOF cd /Users/xxx/development/GoProjects/programming /Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64/compile -o $WORK/b001/_pkg_.a -trimpath \"$WORK/b001=\u003e\" -p main -lang=go1.23 -complete -buildid YISpSOUo49yo3nM9m5vL/YISpSOUo49yo3nM9m5vL -dwarf=false -goversion go1.23.9 -c=4 -shared -nolocalimports -importcfg $WORK/b001/importcfg -pack ./main.go /Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64/buildid -w $WORK/b001/_pkg_.a # internal cat \u003e$WORK/b001/importcfg.link \u003c\u003c 'EOF' # internal packagefile command-line-arguments=$WORK/b001/_pkg_.a ... modinfo \"0w\\xaf\\f\\x92t\\b\\x02A\\xe1\\xc1\\a\\xe6\\xd6\\x18\\xe6path\\tcommand-line-arguments\\nbuild\\t-buildmode=exe\\nbuild\\t-compiler=gc\\nbuild\\tCGO_ENABLED=1\\nbuild\\tCGO_CFLAGS=\\nbuild\\tCGO_CPPFLAGS=\\nbuild\\tCGO_CXXFLAGS=\\nbuild\\tCGO_LDFLAGS=\\nbuild\\tGOARCH=arm64\\nbuild\\tGOOS=darwin\\nbuild\\tGOARM64=v8.0\\n\\xf92C1\\x86\\x18 r\\x00\\x82B\\x10A\\x16\\xd8\\xf2\" EOF mkdir -p $WORK/b001/exe/ cd . GOROOT='/Users/xxx/.goenv/versions/1.23.9' /Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64/link -o $WORK/b001/exe/main -importcfg $WORK/b001/importcfg.link -s -w -buildmode=pie -buildid=-joJxXS_qbf1Rk55E1DJ/YISpSOUo49yo3nM9m5vL/YISpSOUo49yo3nM9m5vL/-joJxXS_qbf1Rk55E1DJ -extld=clang $WORK/b001/_pkg_.a $WORK/b001/exe/main 这里可以看到创建了两个临时文件夹 b001 和 exe，先执行了compile命令，然后link，生成了归档文件 pkg.a 和最终可执行文件，最终的可执行文件放在 exe 文件夹里面。命令的最后一步就是执行了可执行文件。\n3. go run配合-work\n举个例子，生成的临时文件可以用go run -work看到，比如当前生成的临时文件夹是如下的路径：\n执行：\n$ go run -work main.go 输出：\nWORK=/var/folders/r5/g9x6_d5n4z14jk1sxp27j9ch0000gn/T/go-build273325625 Hello World! Test command: go run 进入临时文件夹：\n$ cd /var/folders/r5/g9x6_d5n4z14jk1sxp27j9ch0000gn/T/go-build273325625 查看目录结构：\n$ tree . └── b001 ├── _pkg_.a ├── exe │ └── main ├── importcfg └── importcfg.link 3 directories, 4 files 可以看到，最终go run命令是生成了 2 个文件\n一个是归档文件 pkg.a 一个是可执行文件 main go run命令在第二次执行的时候，如果发现导入的代码包没有发生变化，那么go run不会再次编译这个导入的代码包，而是直接静态链接进来。\ngo build go build命令用于编译指定的 Go 源码文件或代码包以及与之相关联的依赖包。\n如果是普通包，当你执行go build命令后，不会产生任何文件。 如果是 main 包，当只执行go build命令后，会在当前目录下生成一个可执行文件。如果需要在$GOPATH/bin目录下生成相应的可执行文件，需要执行go install或者使用go build -o 路径/可执行文件。 如果某个文件夹下有多个文件，而你只想编译其中某一个文件，可以在go build之后加上文件名，例如go build a.go。go build命令默认会编译当前目录下的所有.go文件。 你也可以指定编译输出的文件名。比如，我们可以指定go build -o 可执行文件名，默认情况是你的 package 名(非 main 包)，或者是第一个源文件的文件名（main 包）。 go build会忽略目录下以 “_” 或者 “.” 开头的.go文件。 如果你的源代码针对不同的操作系统需要不同的处理，那么你可以根据不同的操作系统后缀来命名文件。 当代码包中有且仅有一个命令源码文件的时候，在文件夹所在目录中执行go build命令，会在该目录下生成一个与目录同名的可执行文件。 # 执行 go build 之前 $ tree . ├── go.mod └── main.go 1 directory, 2 files # 执行 go build $ go build # 执行 go build 之后 $ tree . ├── go.mod ├── main.go └── programming # 这个就是 go build 编译产物 1 directory, 3 files 下面来看看go build具体做了什么？\n1. go build配合-n\n执行：\n$ go build -n 输出：\nmkdir -p $WORK/b001/ cat \u003e$WORK/b001/importcfg.link \u003c\u003c 'EOF' # internal packagefile ... ... packagefile ... modinfo \"...\" EOF mkdir -p $WORK/b001/exe/ cd . GOROOT='/Users/xxx/.goenv/versions/1.23.9' /Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64/link -o $WORK/b001/exe/a.out -importcfg $WORK/b001/importcfg.link -buildmode=pie -buildid=KGXQl67ZYdS3jwdwCZUe/MjHYLdYDE06snCMmFEkm/M_jXbp3RMIXFtGizibbA/KGXQl67ZYdS3jwdwCZUe -extld=clang /Users/xxx/Library/Caches/go-build/9f/9f9b921244f07f03ef44096ba037733c558b8e9830a6b9e3112fb736c31f73ac-d /Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64/buildid -w $WORK/b001/exe/a.out # internal mv $WORK/b001/exe/a.out programming rm -rf $WORK/b001/ 可以看到，执行过程和go run大体相同，唯一不同的就是在最后一步：go run是执行了可执行文件，但是go build命令，只是把库源码文件编译了一遍，然后把可执行文件移动到了当前目录的文件夹中。\n注意：go build既不能编译包含多个命令源码文件的代码包，也不能同时编译多个命令源码文件。因为如果把多个命令源码文件作为一个整体看待，那么每个文件中的main函数都属于重名函数，在编译时会抛出重复定义错误。\ngo install go install用于编译和安装 Go 程序或库。\n执行：\n$ go install -n 输出：\nmkdir -p $WORK/b001/ cat \u003e$WORK/b001/importcfg.link \u003c\u003c 'EOF' # internal packagefile ... ... packagefile ... modinfo \"...\" EOF mkdir -p $WORK/b001/exe/ cd . GOROOT='/Users/xxx/.goenv/versions/1.23.9' /Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64/link -o $WORK/b001/exe/a.out -importcfg $WORK/b001/importcfg.link -buildmode=pie -buildid=KGXQl67ZYdS3jwdwCZUe/MjHYLdYDE06snCMmFEkm/M_jXbp3RMIXFtGizibbA/KGXQl67ZYdS3jwdwCZUe -extld=clang /Users/xxx/Library/Caches/go-build/9f/9f9b921244f07f03ef44096ba037733c558b8e9830a6b9e3112fb736c31f73ac-d /Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64/buildid -w $WORK/b001/exe/a.out # internal mkdir -p /Users/xxx/go/1.23.9/bin/ mv $WORK/b001/exe/a.out /Users/xxx/go/1.23.9/bin/programming rm -rf $WORK/b001/ go install命令在内部实际上分成了两步操作：\n生成结果文件（可执行文件或者 pkg.a 包) 可执行文件： 一般是go install + 带main函数的.go文件 产生的，有函数入口，可以直接运行 pkg.a 包： 一般是go install + 不包含main函数的.go文件 产生的，没有函数入口，只能被调用 把编译好的结果移到$GOPATH/pkg或者$GOPATH/bin go install用于编译并安装指定的代码包及它们的依赖包。当指定的代码包的依赖包还没有被编译和安装时，该命令会先去处理依赖包。与go build命令一样，传给go install命令的代码包参数应该以导入路径的形式提供。并且，go build命令的绝大多数标记也都可以用于go install。\n实际上，go install命令只比go build命令多做了一件事，即：安装编译后的结果文件到指定目录。\n注意：在安装多个库源码文件时有可能遇到如下的问题:\n$ go install xxx1.go xxx2.go xxx3.go go install: no install location for .go files listed on command line (GOBIN not set) 而且，在我们为环境变量GOBIN设置了正确的值之后，这个错误提示信息仍然会出现。 这是因为，只有在安装命令源码文件的时候，命令程序才会将环境变量GOBIN的值作为结果文件的存放目录。而在安装库源码文件时，在命令程序内部的代表结果文件存放目录路径的那个变量不会被赋值。最后，命令程序会发现它依然是个无效的空值。 所以，命令程序会同样返回一个关于“无安装位置”的错误。 这就引出一个结论，我们只能使用安装代码包的方式来安装库源码文件，而不能在go install命令罗列并安装它们。\n另外，go install 命令目前无法接受标记-o以自定义结果文件的存放位置。这也从侧面说明了go install命令不支持针对库源码文件的安装操作。\ngo get go get用于下载并安装依赖或项目。\ngo get常用选项 选项 作用 -d 让命令程序只执行下载动作，而不执行安装动作。有些非常特殊的代码包在安装过程中需要有特殊的处理，我们需要先下载下来，暂时不进行安装动作，此时就可以用-d参数。 -u 让命令程序利用网络来更新已有代码包及其依赖包。默认情况下，该命令只会从网络上下载本地不存在的代码包，而不会更新已有的代码包。 -f 仅在使用-u标记时才有效。该标记会让命令程序忽略掉对已下载代码包的导入路径的检查。如果下载并安装的代码包所属的项目是你从别人那里 fork 过来的，那么这样做就尤为重要了。 -t 让命令程序同时下载并安装指定的代码包中的测试源码文件中依赖的代码包。 -fix 让命令程序在下载代码包后先执行修正动作，而后再进行编译和安装。 -insecure 允许命令程序使用非安全的 scheme（如 HTTP ）去下载指定的代码包。如果你用的代码仓库（如公司内部的 Gitlab ）没有HTTPS 支持，可以添加此标记。请在确定安全的情况下使用它。 这里说明一下-fix参数中的修正动作。比如说我们需要下载并安装的代码包，是在很早以前写的，其中使用的语法可能是 go1.0 版本之前，而我们当前使用的语法时 go1.4，那这其中的一些语法，以及对一些程序实体的使用方式，可能是不兼容的。为了消除这种不兼容，并可以使这个比较久远的代码包，能够被正确的编译和安装，此时就可以使用-fix参数。它会使命令程序，自动的把这些已经废弃的，或者不一样的语法语句、程序实体使用方式，修正成我们当前这个 go 语言版本所使用的方法和方式。\ngo get做了什么 执行：\n$ go get -x github.com/go-errors/errors 输出：\n# get https://goproxy.io/github.com/@v/list # get https://goproxy.io/github.com/go-errors/@v/list # get https://goproxy.io/github.com/go-errors/errors/@v/list # get https://goproxy.io/github.com/go-errors/@v/list: 404 Not Found (1.726s) # get https://goproxy.io/github.com/go-errors/errors/@v/list: 200 OK (2.140s) # get https://goproxy.io/github.com/go-errors/errors/@v/v1.5.1.info # get https://goproxy.io/github.com/@v/list: 404 Not Found (2.144s) # get https://goproxy.io/github.com/go-errors/errors/@v/v1.5.1.info: 200 OK (0.204s) # get https://goproxy.io/github.com/go-errors/errors/@v/v1.5.1.mod # get https://goproxy.io/github.com/go-errors/errors/@v/v1.5.1.mod: 200 OK (0.821s) # get https://sum.golang.google.cn/lookup/github.com/go-errors/errors@v1.5.1 # get https://sum.golang.google.cn/lookup/github.com/go-errors/errors@v1.5.1: 200 OK (1.174s) # get https://sum.golang.google.cn/tile/8/1/575 # get https://sum.golang.google.cn/tile/8/2/002.p/65 # get https://sum.golang.google.cn/tile/8/0/x147/814.p/16 # get https://sum.golang.google.cn/tile/8/0/x147/259 # get https://sum.golang.google.cn/tile/8/1/577.p/102 # get https://sum.golang.google.cn/tile/8/0/x147/259: 200 OK (0.040s) # get https://sum.golang.google.cn/tile/8/2/002.p/65: 200 OK (0.041s) # get https://sum.golang.google.cn/tile/8/1/577.p/102: 200 OK (0.042s) # get https://sum.golang.google.cn/tile/8/0/x147/814.p/16: 200 OK (0.042s) # get https://sum.golang.google.cn/tile/8/1/575: 200 OK (0.043s) # get https://sum.golang.google.cn/tile/8/1/300 # get https://sum.golang.google.cn/tile/8/0/x076/955 # get https://sum.golang.google.cn/tile/8/1/300: 200 OK (0.040s) # get https://sum.golang.google.cn/tile/8/0/x076/955: 200 OK (0.040s) go: downloading github.com/go-errors/errors v1.5.1 # get https://goproxy.io/github.com/go-errors/errors/@v/v1.5.1.zip # get https://goproxy.io/github.com/go-errors/errors/@v/v1.5.1.zip: 200 OK (0.202s) go: added github.com/go-errors/errors v1.5.1 go get命令会调用git clone方法下载源码，并编译，最终会把库源码文件编译成归档文件安装到pkg对应的相关平台目录下。\n引入了 go module 后，go get变化 使用 go module 之后，go get拉取依赖的方式就发生了变化。\n拉取最新的版本（优先择取 tag） $ go get golang.org/x/text@latest 拉取 master 分支的最新 commit $ go get golang.org/x/text@master 拉取 tag 为 v0.3.2 的 commit $ go get golang.org/x/text@v0.3.2 拉取 hash 为 342b231 的 commit，最终会被转换为其对应的 tag 号 $ go get golang.org/x/text@342b2e 拉取指定版本，如指定版本 v3 $ go get github.com/smartwalle/alipay/v3 更新 $ go get -u 配置 GOPROXY 由于国内网络问题，可以将如下配置内容加入~/.bashrc或~/.bash_profile for bash，~/.zshrc或~/.zprofile for zsh.\ngo env -w GO111MODULE=on go env -w GOPROXY=https://goproxy.io,https://proxy.golang.org,direct go env -w GOSUMDB=\"sum.golang.google.cn\" go mod go mod用于 Go 模块支持，包括初始化、添加依赖等。\n$ go help mod Go mod provides access to operations on modules. Note that support for modules is built into all the go commands, not just 'go mod'. For example, day-to-day adding, removing, upgrading, and downgrading of dependencies should be done using 'go get'. See 'go help modules' for an overview of module functionality. Usage: go mod [arguments] The commands are: download download modules to local cache edit edit go.mod from tools or scripts graph print module requirement graph init initialize new module in current directory tidy add missing and remove unused modules vendor make vendored copy of dependencies verify verify dependencies have expected content why explain why packages or modules are needed Use \"go help mod \" for more information about a command. go mod init 初始化一个新模块，并在当前目录下创建go.mod文件。\n$ mkdir hello $ cd hello $ go mod init xxx.com/hello go: creating new go.mod: module xxx.com/hello $ cat go.mod module xxx.com/hello go 1.23.9 go mod tidy 清理未使用的依赖项，并更新go.mod文件。\ngo mod download 下载当前模块及其所有直接和间接依赖。\ngo mod vendor 将依赖项复制到vendor目录中，便于离线部署。\ngo test go test用于运行 Go 程序的测试。\ngo test命令会自动读取源码目录下面名为 *_test.go 的文件，生成并运行测试用的可执行文件。\n默认的情况下，不需要任何的参数，go test命令会自动把源码包下面所有 test 文件测试完毕，当然也可以带上参数，详情可以参考go help test。\ngo test -v可用于打印每个测试函数的名字和运行时间。\ngo test -bench=.可用于运行基准测试。\n-run对应一个正则表达式，只有测试函数名被正确匹配的测试函数才会被go test测试命令运行，如：go test -run=^$\ngo clean go clean用于删除当前源码包里面编译生成的文件。\ngo fmt go fmt用于自动格式化 Go 源代码。\n比如我们写了一个格式很糟糕的test.go文件，我们只需要使用go fmt test.go命令，就可以让 go 帮我们格式化我们的代码文件。但是我们一般很少使用这个命令，因为我们的开发工具一般都带有保存时自动格式化功能，这个功能底层其实就是调用了go fmt命令。\n使用go fmt命令，更多时候是用gofmt，而且需要参数-w，否则格式化结果不会写入文件。\ngo vet go vet用于对 Go 代码进行静态分析，检查可能存在的错误。若代码无问题，则没有输出\ngo doc go doc用于查看 Go 语言标准库或你的代码库中的文档。\n执行：\n$ go doc fmt.Println 输出：\npackage fmt // import \"fmt\" func Println(a ...any) (n int, err error) Println formats using the default formats for its operands and writes to standard output. Spaces are always added between operands and a newline is appended. It returns the number of bytes written and any write error encountered. go list go list命令可以查看项目的依赖，其中-m选项表示列出模块而不是包。\ngo list -m all列出当前模块及其依赖项的所有模块和版本。 go list -m -u all列出当前模块及其依赖项的所有模块和版本，及可用的最新版本。 go env go env用于打印 Go 的环境信息。\n执行：\n$ go env 输出：\nGO111MODULE='on' GOARCH='arm64' GOBIN='' GOCACHE='/Users/xxx/Library/Caches/go-build' GOENV='/Users/xxx/Library/Application Support/go/env' GOEXE='' GOEXPERIMENT='' GOFLAGS='' GOHOSTARCH='arm64' GOHOSTOS='darwin' GOINSECURE='' GOMODCACHE='/Users/xxx/go/1.23.9/pkg/mod' GONOPROXY='' GONOSUMDB='' GOOS='darwin' GOPATH='/Users/xxx/go/1.23.9' GOPRIVATE='' GOPROXY='https://goproxy.io,https://proxy.golang.org,direct' GOROOT='/Users/xxx/.goenv/versions/1.23.9' GOSUMDB='sum.golang.google.cn' GOTMPDIR='' GOTOOLCHAIN='auto' GOTOOLDIR='/Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64' GOVCS='' GOVERSION='go1.23.9' GODEBUG='' GOTELEMETRY='local' GOTELEMETRYDIR='/Users/xxx/Library/Application Support/go/telemetry' GCCGO='gccgo' GOARM64='v8.0' AR='ar' CC='clang' CXX='clang++' CGO_ENABLED='1' GOMOD='/dev/null' GOWORK='' CGO_CFLAGS='-O2 -g' CGO_CPPFLAGS='' CGO_CXXFLAGS='-O2 -g' CGO_FFLAGS='-O2 -g' CGO_LDFLAGS='-O2 -g' PKG_CONFIG='pkg-config' GOGCCFLAGS='-fPIC -arch arm64 -pthread -fno-caret-diagnostics -Qunused-arguments -fmessage-length=0 -ffile-prefix-map=/var/folders/r5/g9x6_d5n4z14jk1sxp27j9ch0000gn/T/go-build4084107366=/tmp/go-build -gno-record-gcc-switches -fno-common' go version go version用于打印当前 Go 的版本信息。\n执行：\n$ go version 输出：\ngo version go1.23.9 darwin/arm64 ","wordCount":"5138","inLanguage":"en","image":"https://docodex.github.io/images/favicon.jpg","datePublished":"2025-05-23T16:52:52+08:00","dateModified":"2025-05-23T16:52:52+08:00","author":[{"@type":"Person","name":"Me"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://docodex.github.io/posts/tech/go-cmd/"},"publisher":{"@type":"Organization","name":"DoCodeX","logo":{"@type":"ImageObject","url":"https://docodex.github.io/images/favicon.jpg"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://docodex.github.io/ accesskey=h title="DoCodeX (Alt + H)"><img src=https://docodex.github.io/apple-touch-icon.png alt aria-label=logo height=35>DoCodeX</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)">
+<svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+<svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://docodex.github.io/posts/ title=Posts><span>Posts</span></a></li><li><a href=https://docodex.github.io/archives/ title=Archive><span>Archive</span></a></li><li><a href=https://docodex.github.io/search/ title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=https://docodex.github.io/categories/ title=Categories><span>Categories</span></a></li><li><a href=https://docodex.github.io/tags/ title=Tags><span>Tags</span></a></li><li><a href=https://docodex.github.io/series/ title=Series><span>Series</span></a></li><li><a href=https://docodex.github.io/about/ title=About><span>About</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://docodex.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://docodex.github.io/posts/>Posts</a>&nbsp;»&nbsp;<a href=https://docodex.github.io/posts/tech/>技术</a></div><h1 class="post-title entry-hint-parent">Go 常用命令</h1><div class=post-meta><span title='2025-05-23 16:52:52 +0800 CST'>2025-05-23</span>&nbsp;·&nbsp;11 min&nbsp;·&nbsp;5138 words&nbsp;·&nbsp;Me</div></header><aside id=toc-container class="toc-container wide"><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e9%80%9a%e7%94%a8%e9%80%89%e9%a1%b9 aria-label=通用选项>通用选项</a></li><li><a href=#go-run aria-label="go run"><code>go run</code></a></li><li><a href=#go-build aria-label="go build"><code>go build</code></a></li><li><a href=#go-install aria-label="go install"><code>go install</code></a></li><li><a href=#go-get aria-label="go get"><code>go get</code></a><ul><li><a href=#go-get%e5%b8%b8%e7%94%a8%e9%80%89%e9%a1%b9 aria-label="go get常用选项"><code>go get</code>常用选项</a></li><li><a href=#go-get%e5%81%9a%e4%ba%86%e4%bb%80%e4%b9%88 aria-label="go get做了什么"><code>go get</code>做了什么</a></li><li><a href=#%e5%bc%95%e5%85%a5%e4%ba%86-go-module-%e5%90%8ego-get%e5%8f%98%e5%8c%96 aria-label="引入了 go module 后，go get变化">引入了 go module 后，<code>go get</code>变化</a></li><li><a href=#%e9%85%8d%e7%bd%ae-goproxy aria-label="配置 GOPROXY">配置 GOPROXY</a></li></ul></li><li><a href=#go-mod aria-label="go mod"><code>go mod</code></a><ul><li><a href=#go-mod-init aria-label="go mod init"><code>go mod init</code></a></li><li><a href=#go-mod-tidy aria-label="go mod tidy"><code>go mod tidy</code></a></li><li><a href=#go-mod-download aria-label="go mod download"><code>go mod download</code></a></li><li><a href=#go-mod-vendor aria-label="go mod vendor"><code>go mod vendor</code></a></li></ul></li><li><a href=#go-test aria-label="go test"><code>go test</code></a></li><li><a href=#go-clean aria-label="go clean"><code>go clean</code></a></li><li><a href=#go-fmt aria-label="go fmt"><code>go fmt</code></a></li><li><a href=#go-vet aria-label="go vet"><code>go vet</code></a></li><li><a href=#go-doc aria-label="go doc"><code>go doc</code></a></li><li><a href=#go-list aria-label="go list"><code>go list</code></a></li><li><a href=#go-env aria-label="go env"><code>go env</code></a></li><li><a href=#go-version aria-label="go version"><code>go version</code></a></li></ul></div></details></div></aside><script>let activeElement,elements;window.addEventListener("DOMContentLoaded",function(){checkTocPosition(),elements=document.querySelectorAll("h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]"),activeElement=elements[0];const t=encodeURI(activeElement.getAttribute("id")).toLowerCase();document.querySelector(`.inner ul li a[href="#${t}"]`).classList.add("active")},!1),window.addEventListener("resize",function(){checkTocPosition()},!1),window.addEventListener("scroll",()=>{activeElement=Array.from(elements).find(e=>{if(getOffsetTop(e)-window.pageYOffset>0&&getOffsetTop(e)-window.pageYOffset<window.innerHeight/2)return e})||activeElement,elements.forEach(e=>{const t=encodeURI(e.getAttribute("id")).toLowerCase();e===activeElement?document.querySelector(`.inner ul li a[href="#${t}"]`).classList.add("active"):document.querySelector(`.inner ul li a[href="#${t}"]`).classList.remove("active")})},!1);const main=parseInt(getComputedStyle(document.body).getPropertyValue("--article-width"),10),toc=parseInt(getComputedStyle(document.body).getPropertyValue("--toc-width"),10),gap=parseInt(getComputedStyle(document.body).getPropertyValue("--gap"),10);function checkTocPosition(){const e=document.body.scrollWidth;e-main-toc*2-gap*4>0?document.getElementById("toc-container").classList.add("wide"):document.getElementById("toc-container").classList.remove("wide")}function getOffsetTop(e){if(!e.getClientRects().length)return 0;let t=e.getBoundingClientRect(),n=e.ownerDocument.defaultView;return t.top+n.pageYOffset}</script><div class=post-content><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go <span class=nb>help</span>
+</span></span><span class=line><span class=cl>Go is a tool <span class=k>for</span> managing Go <span class=nb>source</span> code.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Usage:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	go &lt;command&gt; <span class=o>[</span>arguments<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>The commands are:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	bug         start a bug report
+</span></span><span class=line><span class=cl>	build       compile packages and dependencies
+</span></span><span class=line><span class=cl>	clean       remove object files and cached files
+</span></span><span class=line><span class=cl>	doc         show documentation <span class=k>for</span> package or symbol
+</span></span><span class=line><span class=cl>	env         print Go environment information
+</span></span><span class=line><span class=cl>	fix         update packages to use new APIs
+</span></span><span class=line><span class=cl>	fmt         gofmt <span class=o>(</span>reformat<span class=o>)</span> package sources
+</span></span><span class=line><span class=cl>	generate    generate Go files by processing <span class=nb>source</span>
+</span></span><span class=line><span class=cl>	get         add dependencies to current module and install them
+</span></span><span class=line><span class=cl>	install     compile and install packages and dependencies
+</span></span><span class=line><span class=cl>	list        list packages or modules
+</span></span><span class=line><span class=cl>	mod         module maintenance
+</span></span><span class=line><span class=cl>	work        workspace maintenance
+</span></span><span class=line><span class=cl>	run         compile and run Go program
+</span></span><span class=line><span class=cl>	telemetry   manage telemetry data and settings
+</span></span><span class=line><span class=cl>	<span class=nb>test</span>        <span class=nb>test</span> packages
+</span></span><span class=line><span class=cl>	tool        run specified go tool
+</span></span><span class=line><span class=cl>	version     print Go version
+</span></span><span class=line><span class=cl>	vet         report likely mistakes in packages
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Use <span class=s2>&#34;go help &lt;command&gt;&#34;</span> <span class=k>for</span> more information about a command.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Additional <span class=nb>help</span> topics:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	buildconstraint build constraints
+</span></span><span class=line><span class=cl>	buildmode       build modes
+</span></span><span class=line><span class=cl>	c               calling between Go and C
+</span></span><span class=line><span class=cl>	cache           build and <span class=nb>test</span> caching
+</span></span><span class=line><span class=cl>	environment     environment variables
+</span></span><span class=line><span class=cl>	filetype        file types
+</span></span><span class=line><span class=cl>	go.mod          the go.mod file
+</span></span><span class=line><span class=cl>	gopath          GOPATH environment variable
+</span></span><span class=line><span class=cl>	goproxy         module proxy protocol
+</span></span><span class=line><span class=cl>	importpath      import path syntax
+</span></span><span class=line><span class=cl>	modules         modules, module versions, and more
+</span></span><span class=line><span class=cl>	module-auth     module authentication using go.sum
+</span></span><span class=line><span class=cl>	packages        package lists and patterns
+</span></span><span class=line><span class=cl>	private         configuration <span class=k>for</span> downloading non-public code
+</span></span><span class=line><span class=cl>	testflag        testing flags
+</span></span><span class=line><span class=cl>	testfunc        testing functions
+</span></span><span class=line><span class=cl>	vcs             controlling version control with GOVCS
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Use <span class=s2>&#34;go help &lt;topic&gt;&#34;</span> <span class=k>for</span> more information about that topic.
+</span></span></code></pre></div><h2 id=通用选项>通用选项<a hidden class=anchor aria-hidden=true href=#通用选项>#</a></h2><table><thead><tr><th>选项</th><th>作用</th></tr></thead><tbody><tr><td><code>-a</code></td><td>用于<strong>强制重新编译所有涉及的 Go 语言代码包</strong>（包括 Go 语言标准库中的代码包），<strong>即使它们已经是最新的了</strong>。该标记可以让我们有机会通过改动底层的代码包做一些实验。</td></tr><tr><td><code>-n</code></td><td>使命令<strong>仅打印其执行过程中用到的所有命令，而不去真正执行它们</strong>。如果只想查看或者验证命令的执行过程，而不想改变任何东西，使用它正好合适。</td></tr><tr><td><code>-v</code></td><td>用于<strong>打印命令执行过程中涉及的代码包（列出被编译的代码包名称）</strong>。这一定包括我们指定的目标代码包，并且有时还会包括该代码包直接或间接依赖的那些代码包。这会让你知道哪些代码包被执行过了。</td></tr><tr><td><code>-work</code></td><td>用于<strong>打印命令执行时生成和使用的临时工作目录的名字，且命令执行完成后不删除它</strong>。这个目录下的文件可能会对你有用，也可以从侧面了解命令的执行过程。<strong>如果不添加此标记，那么临时工作目录会在命令执行完毕前删除</strong>。</td></tr><tr><td><code>-x</code></td><td>使命令打印其执行过程中用到的所有命令，<strong>并同时执行它们</strong>。（而<code>-n</code>参数是不真正执行它们）</td></tr><tr><td><code>-race</code></td><td>用于<strong>检测并报告指定 Go 语言程序中存在的数据竞争问题</strong>。当用 Go 语言编写并发程序的时候，这是很重要的检测手段之一。</td></tr></tbody></table><h2 id=go-run><code>go run</code><a hidden class=anchor aria-hidden=true href=#go-run>#</a></h2><p><code>go run</code>命令用于编译并运行 Go 程序。</p><blockquote><p><code>go run</code>命令专门用来运行命令源码文件。
+<strong>注意，这个命令不是用来运行所有 Go 的源码文件的！</strong></p></blockquote><p><code>go run</code>命令只能接受<strong>一个命令源码文件</strong>以及<strong>若干个库源码文件</strong>（必须同属于<code>main</code>包）作为文件参数，且不能接受测试源码文件。它在执行时会检查源码文件的类型。如果参数中有多个或者没有命令源码文件，那么<code>go run</code>命令就只会打印错误提示信息并退出，而不会继续执行。</p><p><code>go run</code>命令会先编译作为文件参数的源码文件，将他们的编译结果，放到一个临时文件夹中，然后再去运行这个编译的结果，这个编译结果包括命令源码文件被编译后生成的<strong>可执行文件</strong>以及相关库源码文件编译后生成的<strong>归档文件</strong>。</p><p>下面来看看<code>go run</code>具体做了什么？</p><p><strong>1. 准备如下代码<code>main.go</code></strong></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=s>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Hello World!&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Test command: go run&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p><strong>2. <code>go run</code>配合<code>-n</code></strong></p><p>执行：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go run -n main.go
+</span></span></code></pre></div><p>输出：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1>#</span>
+</span></span><span class=line><span class=cl><span class=c1># command-line-arguments</span>
+</span></span><span class=line><span class=cl><span class=c1>#</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>mkdir -p <span class=nv>$WORK</span>/b001/
+</span></span><span class=line><span class=cl>cat &gt;<span class=nv>$WORK</span>/b001/importcfg <span class=s>&lt;&lt; &#39;EOF&#39; # internal
+</span></span></span><span class=line><span class=cl><span class=s># import config
+</span></span></span><span class=line><span class=cl><span class=s>packagefile fmt=/Users/xxx/Library/Caches/go-build/f0/f06adbb2b63f00d9707b9f6cde4112bebf661eda9f148ebf53a9d97d65d6d172-d
+</span></span></span><span class=line><span class=cl><span class=s>packagefile runtime=/Users/xxx/Library/Caches/go-build/3f/3fd07ccfb543f52c4ae7929592c5a13bef8fce045bb00fcc31e834325c5be513-d
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span><span class=line><span class=cl><span class=nb>cd</span> /Users/xxx/development/GoProjects/programming
+</span></span><span class=line><span class=cl>/Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64/compile -o <span class=nv>$WORK</span>/b001/_pkg_.a -trimpath <span class=s2>&#34;</span><span class=nv>$WORK</span><span class=s2>/b001=&gt;&#34;</span> -p main -lang<span class=o>=</span>go1.23 -complete -buildid YISpSOUo49yo3nM9m5vL/YISpSOUo49yo3nM9m5vL -dwarf<span class=o>=</span><span class=nb>false</span> -goversion go1.23.9 -c<span class=o>=</span><span class=m>4</span> -shared -nolocalimports -importcfg <span class=nv>$WORK</span>/b001/importcfg -pack ./main.go
+</span></span><span class=line><span class=cl>/Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64/buildid -w <span class=nv>$WORK</span>/b001/_pkg_.a <span class=c1># internal</span>
+</span></span><span class=line><span class=cl>cat &gt;<span class=nv>$WORK</span>/b001/importcfg.link <span class=s>&lt;&lt; &#39;EOF&#39; # internal
+</span></span></span><span class=line><span class=cl><span class=s>packagefile command-line-arguments=$WORK/b001/_pkg_.a
+</span></span></span><span class=line><span class=cl><span class=s>...
+</span></span></span><span class=line><span class=cl><span class=s>modinfo &#34;0w\xaf\f\x92t\b\x02A\xe1\xc1\a\xe6\xd6\x18\xe6path\tcommand-line-arguments\nbuild\t-buildmode=exe\nbuild\t-compiler=gc\nbuild\tCGO_ENABLED=1\nbuild\tCGO_CFLAGS=\nbuild\tCGO_CPPFLAGS=\nbuild\tCGO_CXXFLAGS=\nbuild\tCGO_LDFLAGS=\nbuild\tGOARCH=arm64\nbuild\tGOOS=darwin\nbuild\tGOARM64=v8.0\n\xf92C1\x86\x18 r\x00\x82B\x10A\x16\xd8\xf2&#34;
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span><span class=line><span class=cl>mkdir -p <span class=nv>$WORK</span>/b001/exe/
+</span></span><span class=line><span class=cl><span class=nb>cd</span> .
+</span></span><span class=line><span class=cl><span class=nv>GOROOT</span><span class=o>=</span><span class=s1>&#39;/Users/xxx/.goenv/versions/1.23.9&#39;</span> /Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64/link -o <span class=nv>$WORK</span>/b001/exe/main -importcfg <span class=nv>$WORK</span>/b001/importcfg.link -s -w -buildmode<span class=o>=</span>pie -buildid<span class=o>=</span>-joJxXS_qbf1Rk55E1DJ/YISpSOUo49yo3nM9m5vL/YISpSOUo49yo3nM9m5vL/-joJxXS_qbf1Rk55E1DJ -extld<span class=o>=</span>clang <span class=nv>$WORK</span>/b001/_pkg_.a
+</span></span><span class=line><span class=cl><span class=nv>$WORK</span>/b001/exe/main
+</span></span></code></pre></div><p>这里可以看到创建了两个临时文件夹 <strong>b001</strong> 和 <strong>exe</strong>，先执行了<code>compile</code>命令，然后<code>link</code>，生成了归档文件 <strong><em>pkg</em>.a</strong> 和<strong>最终可执行文件</strong>，最终的可执行文件放在 <strong>exe</strong> 文件夹里面。命令的最后一步就是执行了可执行文件。</p><p><img loading=lazy src=./images/img-1.png alt="alt text"></p><p><strong>3. <code>go run</code>配合<code>-work</code></strong></p><p>举个例子，生成的临时文件可以用<code>go run -work</code>看到，比如当前生成的临时文件夹是如下的路径：</p><p>执行：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go run -work main.go
+</span></span></code></pre></div><p>输出：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nv>WORK</span><span class=o>=</span>/var/folders/r5/g9x6_d5n4z14jk1sxp27j9ch0000gn/T/go-build273325625
+</span></span><span class=line><span class=cl>Hello World!
+</span></span><span class=line><span class=cl>Test command: go run
+</span></span></code></pre></div><p>进入临时文件夹：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ <span class=nb>cd</span> /var/folders/r5/g9x6_d5n4z14jk1sxp27j9ch0000gn/T/go-build273325625
+</span></span></code></pre></div><p>查看目录结构：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ tree
+</span></span><span class=line><span class=cl>.
+</span></span><span class=line><span class=cl>└── b001
+</span></span><span class=line><span class=cl>    ├── _pkg_.a
+</span></span><span class=line><span class=cl>    ├── exe
+</span></span><span class=line><span class=cl>    │   └── main
+</span></span><span class=line><span class=cl>    ├── importcfg
+</span></span><span class=line><span class=cl>    └── importcfg.link
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>3</span> directories, <span class=m>4</span> files
+</span></span></code></pre></div><p>可以看到，最终go run命令是生成了 2 个文件</p><ul><li>一个是归档文件 <em>pkg</em>.a</li><li>一个是可执行文件 main</li></ul><p><code>go run</code>命令在第二次执行的时候，如果发现导入的代码包没有发生变化，那么<code>go run</code>不会再次编译这个导入的代码包，而是直接静态链接进来。</p><h2 id=go-build><code>go build</code><a hidden class=anchor aria-hidden=true href=#go-build>#</a></h2><p><code>go build</code>命令用于编译指定的 Go 源码文件或代码包以及与之相关联的依赖包。</p><ol><li>如果是普通包，当你执行<code>go build</code>命令后，不会产生任何文件。</li><li>如果是 <strong>main</strong> 包，当只执行<code>go build</code>命令后，会在当前目录下生成一个可执行文件。如果需要在<code>$GOPATH/bin</code>目录下生成相应的可执行文件，需要执行<code>go install</code>或者使用<code>go build -o 路径/可执行文件</code>。</li><li>如果某个文件夹下有多个文件，而你只想编译其中某一个文件，可以在<code>go build</code>之后加上文件名，例如<code>go build a.go</code>。<code>go build</code>命令默认会编译当前目录下的所有<code>.go</code>文件。</li><li>你也可以指定编译输出的文件名。比如，我们可以指定<code>go build -o 可执行文件名</code>，默认情况是你的 package 名(非 main 包)，或者是第一个源文件的文件名（main 包）。</li><li><code>go build</code>会忽略目录下以 “_” 或者 “.” 开头的<code>.go</code>文件。</li><li>如果你的源代码针对不同的操作系统需要不同的处理，那么你可以根据不同的操作系统后缀来命名文件。</li><li>当代码包中有且仅有一个命令源码文件的时候，在文件夹所在目录中执行<code>go build</code>命令，会在该目录下生成一个与目录同名的可执行文件。</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 执行 go build 之前</span>
+</span></span><span class=line><span class=cl>$ tree
+</span></span><span class=line><span class=cl>.
+</span></span><span class=line><span class=cl>├── go.mod
+</span></span><span class=line><span class=cl>└── main.go
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>1</span> directory, <span class=m>2</span> files
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 执行 go build</span>
+</span></span><span class=line><span class=cl>$ go build
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 执行 go build 之后</span>
+</span></span><span class=line><span class=cl>$ tree
+</span></span><span class=line><span class=cl>.
+</span></span><span class=line><span class=cl>├── go.mod
+</span></span><span class=line><span class=cl>├── main.go
+</span></span><span class=line><span class=cl>└── programming <span class=c1># 这个就是 go build 编译产物</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=m>1</span> directory, <span class=m>3</span> files
+</span></span></code></pre></div><p>下面来看看<code>go build</code>具体做了什么？</p><p><strong>1. <code>go build</code>配合<code>-n</code></strong></p><p>执行：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go build -n
+</span></span></code></pre></div><p>输出：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>mkdir -p <span class=nv>$WORK</span>/b001/
+</span></span><span class=line><span class=cl>cat &gt;<span class=nv>$WORK</span>/b001/importcfg.link <span class=s>&lt;&lt; &#39;EOF&#39; # internal
+</span></span></span><span class=line><span class=cl><span class=s>packagefile ...
+</span></span></span><span class=line><span class=cl><span class=s>...
+</span></span></span><span class=line><span class=cl><span class=s>packagefile ...
+</span></span></span><span class=line><span class=cl><span class=s>modinfo &#34;...&#34;
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span><span class=line><span class=cl>mkdir -p <span class=nv>$WORK</span>/b001/exe/
+</span></span><span class=line><span class=cl><span class=nb>cd</span> .
+</span></span><span class=line><span class=cl><span class=nv>GOROOT</span><span class=o>=</span><span class=s1>&#39;/Users/xxx/.goenv/versions/1.23.9&#39;</span> /Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64/link -o <span class=nv>$WORK</span>/b001/exe/a.out -importcfg <span class=nv>$WORK</span>/b001/importcfg.link -buildmode<span class=o>=</span>pie -buildid<span class=o>=</span>KGXQl67ZYdS3jwdwCZUe/MjHYLdYDE06snCMmFEkm/M_jXbp3RMIXFtGizibbA/KGXQl67ZYdS3jwdwCZUe -extld<span class=o>=</span>clang /Users/xxx/Library/Caches/go-build/9f/9f9b921244f07f03ef44096ba037733c558b8e9830a6b9e3112fb736c31f73ac-d
+</span></span><span class=line><span class=cl>/Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64/buildid -w <span class=nv>$WORK</span>/b001/exe/a.out <span class=c1># internal</span>
+</span></span><span class=line><span class=cl>mv <span class=nv>$WORK</span>/b001/exe/a.out programming
+</span></span><span class=line><span class=cl>rm -rf <span class=nv>$WORK</span>/b001/
+</span></span></code></pre></div><p>可以看到，执行过程和<code>go run</code>大体相同，唯一不同的就是在最后一步：<code>go run</code>是执行了可执行文件，但是<code>go build</code>命令，只是把库源码文件编译了一遍，然后把可执行文件移动到了当前目录的文件夹中。</p><p><img loading=lazy src=./images/img-2.png alt="alt text"></p><p>注意：<code>go build</code>既不能编译包含多个命令源码文件的代码包，也不能同时编译多个命令源码文件。因为如果把多个命令源码文件作为一个整体看待，那么每个文件中的<code>main</code>函数都属于重名函数，在编译时会抛出重复定义错误。</p><h2 id=go-install><code>go install</code><a hidden class=anchor aria-hidden=true href=#go-install>#</a></h2><p><code>go install</code>用于编译和安装 Go 程序或库。</p><p>执行：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go install -n
+</span></span></code></pre></div><p>输出：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>mkdir -p <span class=nv>$WORK</span>/b001/
+</span></span><span class=line><span class=cl>cat &gt;<span class=nv>$WORK</span>/b001/importcfg.link <span class=s>&lt;&lt; &#39;EOF&#39; # internal
+</span></span></span><span class=line><span class=cl><span class=s>packagefile ...
+</span></span></span><span class=line><span class=cl><span class=s>...
+</span></span></span><span class=line><span class=cl><span class=s>packagefile ...
+</span></span></span><span class=line><span class=cl><span class=s>modinfo &#34;...&#34;
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span><span class=line><span class=cl>mkdir -p <span class=nv>$WORK</span>/b001/exe/
+</span></span><span class=line><span class=cl><span class=nb>cd</span> .
+</span></span><span class=line><span class=cl><span class=nv>GOROOT</span><span class=o>=</span><span class=s1>&#39;/Users/xxx/.goenv/versions/1.23.9&#39;</span> /Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64/link -o <span class=nv>$WORK</span>/b001/exe/a.out -importcfg <span class=nv>$WORK</span>/b001/importcfg.link -buildmode<span class=o>=</span>pie -buildid<span class=o>=</span>KGXQl67ZYdS3jwdwCZUe/MjHYLdYDE06snCMmFEkm/M_jXbp3RMIXFtGizibbA/KGXQl67ZYdS3jwdwCZUe -extld<span class=o>=</span>clang /Users/xxx/Library/Caches/go-build/9f/9f9b921244f07f03ef44096ba037733c558b8e9830a6b9e3112fb736c31f73ac-d
+</span></span><span class=line><span class=cl>/Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64/buildid -w <span class=nv>$WORK</span>/b001/exe/a.out <span class=c1># internal</span>
+</span></span><span class=line><span class=cl>mkdir -p /Users/xxx/go/1.23.9/bin/
+</span></span><span class=line><span class=cl>mv <span class=nv>$WORK</span>/b001/exe/a.out /Users/xxx/go/1.23.9/bin/programming
+</span></span><span class=line><span class=cl>rm -rf <span class=nv>$WORK</span>/b001/
+</span></span></code></pre></div><p><code>go install</code>命令在内部实际上分成了两步操作：</p><ol><li>生成结果文件（可执行文件或者 <em>pkg</em>.a 包)<ul><li>可执行文件： 一般是<code>go install</code> + 带<code>main</code>函数的<code>.go</code>文件 产生的，有函数入口，可以直接运行</li><li><em>pkg</em>.a 包： 一般是<code>go install</code> + 不包含<code>main</code>函数的<code>.go</code>文件 产生的，没有函数入口，只能被调用</li></ul></li><li>把编译好的结果移到<code>$GOPATH/pkg</code>或者<code>$GOPATH/bin</code></li></ol><p><code>go install</code>用于编译并安装指定的代码包及它们的依赖包。当指定的代码包的依赖包还没有被编译和安装时，该命令会先去处理依赖包。与<code>go build</code>命令一样，传给<code>go install</code>命令的代码包参数应该以导入路径的形式提供。并且，<code>go build</code>命令的绝大多数标记也都可以用于<code>go install</code>。</p><p>实际上，<code>go install</code>命令只比<code>go build</code>命令多做了一件事，即：<strong>安装编译后的结果文件到指定目录</strong>。</p><p><img loading=lazy src=./images/img-3.png alt="alt text"></p><blockquote><p>注意：在安装多个库源码文件时有可能遇到如下的问题:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$  go install xxx1.go xxx2.go xxx3.go
+</span></span><span class=line><span class=cl>go install: no install location <span class=k>for</span> .go files listed on <span class=nb>command</span> line <span class=o>(</span>GOBIN not <span class=nb>set</span><span class=o>)</span>
+</span></span></code></pre></div><p>而且，在我们为环境变量<code>GOBIN</code>设置了正确的值之后，这个错误提示信息仍然会出现。<br>这是因为，只有在安装命令源码文件的时候，命令程序才会将环境变量<code>GOBIN</code>的值作为结果文件的存放目录。而在安装库源码文件时，在命令程序内部的代表结果文件存放目录路径的那个变量不会被赋值。最后，命令程序会发现它依然是个无效的空值。<br>所以，命令程序会同样返回一个关于“无安装位置”的错误。<br>这就引出一个结论，我们只能使用安装代码包的方式来安装库源码文件，而不能在<code>go install</code>命令罗列并安装它们。</p><p>另外，go install 命令目前无法接受标记<code>-o</code>以自定义结果文件的存放位置。这也从侧面说明了<code>go install</code>命令不支持针对库源码文件的安装操作。</p></blockquote><h2 id=go-get><code>go get</code><a hidden class=anchor aria-hidden=true href=#go-get>#</a></h2><p><code>go get</code>用于下载并安装依赖或项目。</p><h3 id=go-get常用选项><code>go get</code>常用选项<a hidden class=anchor aria-hidden=true href=#go-get常用选项>#</a></h3><table><thead><tr><th>选项</th><th>作用</th></tr></thead><tbody><tr><td><code>-d</code></td><td>让命令程序只执行下载动作，而不执行安装动作。有些非常特殊的代码包在安装过程中需要有特殊的处理，我们需要先下载下来，暂时不进行安装动作，此时就可以用<code>-d</code>参数。</td></tr><tr><td><code>-u</code></td><td>让命令程序利用网络来更新已有代码包及其依赖包。默认情况下，该命令只会从网络上下载本地不存在的代码包，而不会更新已有的代码包。</td></tr><tr><td><code>-f</code></td><td>仅在使用<code>-u</code>标记时才有效。该标记会让命令程序忽略掉对已下载代码包的导入路径的检查。如果下载并安装的代码包所属的项目是你从别人那里 fork 过来的，那么这样做就尤为重要了。</td></tr><tr><td><code>-t</code></td><td>让命令程序同时下载并安装指定的代码包中的测试源码文件中依赖的代码包。</td></tr><tr><td><code>-fix</code></td><td>让命令程序在下载代码包后先执行修正动作，而后再进行编译和安装。</td></tr><tr><td><code>-insecure</code></td><td>允许命令程序使用非安全的 scheme（如 HTTP ）去下载指定的代码包。如果你用的代码仓库（如公司内部的 Gitlab ）没有HTTPS 支持，可以添加此标记。请在确定安全的情况下使用它。</td></tr></tbody></table><blockquote><p>这里说明一下<code>-fix</code>参数中的修正动作。比如说我们需要下载并安装的代码包，是在很早以前写的，其中使用的语法可能是 go1.0 版本之前，而我们当前使用的语法时 go1.4，那这其中的一些语法，以及对一些程序实体的使用方式，可能是不兼容的。为了消除这种不兼容，并可以使这个比较久远的代码包，能够被正确的编译和安装，此时就可以使用<code>-fix</code>参数。它会使命令程序，自动的把这些已经废弃的，或者不一样的语法语句、程序实体使用方式，修正成我们当前这个 go 语言版本所使用的方法和方式。</p></blockquote><h3 id=go-get做了什么><code>go get</code>做了什么<a hidden class=anchor aria-hidden=true href=#go-get做了什么>#</a></h3><p>执行：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go get -x github.com/go-errors/errors
+</span></span></code></pre></div><p>输出：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># get https://goproxy.io/github.com/@v/list</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://goproxy.io/github.com/go-errors/@v/list</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://goproxy.io/github.com/go-errors/errors/@v/list</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://goproxy.io/github.com/go-errors/@v/list: 404 Not Found (1.726s)</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://goproxy.io/github.com/go-errors/errors/@v/list: 200 OK (2.140s)</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://goproxy.io/github.com/go-errors/errors/@v/v1.5.1.info</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://goproxy.io/github.com/@v/list: 404 Not Found (2.144s)</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://goproxy.io/github.com/go-errors/errors/@v/v1.5.1.info: 200 OK (0.204s)</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://goproxy.io/github.com/go-errors/errors/@v/v1.5.1.mod</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://goproxy.io/github.com/go-errors/errors/@v/v1.5.1.mod: 200 OK (0.821s)</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/lookup/github.com/go-errors/errors@v1.5.1</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/lookup/github.com/go-errors/errors@v1.5.1: 200 OK (1.174s)</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/tile/8/1/575</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/tile/8/2/002.p/65</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/tile/8/0/x147/814.p/16</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/tile/8/0/x147/259</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/tile/8/1/577.p/102</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/tile/8/0/x147/259: 200 OK (0.040s)</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/tile/8/2/002.p/65: 200 OK (0.041s)</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/tile/8/1/577.p/102: 200 OK (0.042s)</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/tile/8/0/x147/814.p/16: 200 OK (0.042s)</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/tile/8/1/575: 200 OK (0.043s)</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/tile/8/1/300</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/tile/8/0/x076/955</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/tile/8/1/300: 200 OK (0.040s)</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://sum.golang.google.cn/tile/8/0/x076/955: 200 OK (0.040s)</span>
+</span></span><span class=line><span class=cl>go: downloading github.com/go-errors/errors v1.5.1
+</span></span><span class=line><span class=cl><span class=c1># get https://goproxy.io/github.com/go-errors/errors/@v/v1.5.1.zip</span>
+</span></span><span class=line><span class=cl><span class=c1># get https://goproxy.io/github.com/go-errors/errors/@v/v1.5.1.zip: 200 OK (0.202s)</span>
+</span></span><span class=line><span class=cl>go: added github.com/go-errors/errors v1.5.1
+</span></span></code></pre></div><p><code>go get</code>命令会调用<code>git clone</code>方法下载源码，并编译，最终会把库源码文件编译成归档文件安装到<code>pkg</code>对应的相关平台目录下。</p><p><img loading=lazy src=./images/img-4.png alt="alt text"></p><h3 id=引入了-go-module-后go-get变化>引入了 go module 后，<code>go get</code>变化<a hidden class=anchor aria-hidden=true href=#引入了-go-module-后go-get变化>#</a></h3><p>使用 go module 之后，<code>go get</code>拉取依赖的方式就发生了变化。</p><ul><li>拉取最新的版本（优先择取 tag）</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go get golang.org/x/text@latest
+</span></span></code></pre></div><ul><li>拉取 master 分支的最新 commit</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go get golang.org/x/text@master
+</span></span></code></pre></div><ul><li>拉取 tag 为 v0.3.2 的 commit</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go get golang.org/x/text@v0.3.2
+</span></span></code></pre></div><ul><li>拉取 hash 为 342b231 的 commit，最终会被转换为其对应的 tag 号</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go get golang.org/x/text@342b2e
+</span></span></code></pre></div><ul><li>拉取指定版本，如指定版本 v3</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go get github.com/smartwalle/alipay/v3
+</span></span></code></pre></div><ul><li>更新</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go get -u
+</span></span></code></pre></div><h3 id=配置-goproxy>配置 GOPROXY<a hidden class=anchor aria-hidden=true href=#配置-goproxy>#</a></h3><blockquote><p>由于国内网络问题，可以将如下配置内容加入<code>~/.bashrc</code>或<code>~/.bash_profile</code> for bash，<code>~/.zshrc</code>或<code>~/.zprofile</code> for zsh.</p></blockquote><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>go env -w <span class=nv>GO111MODULE</span><span class=o>=</span>on
+</span></span><span class=line><span class=cl>go env -w <span class=nv>GOPROXY</span><span class=o>=</span>https://goproxy.io,https://proxy.golang.org,direct
+</span></span><span class=line><span class=cl>go env -w <span class=nv>GOSUMDB</span><span class=o>=</span><span class=s2>&#34;sum.golang.google.cn&#34;</span>
+</span></span></code></pre></div><h2 id=go-mod><code>go mod</code><a hidden class=anchor aria-hidden=true href=#go-mod>#</a></h2><p><code>go mod</code>用于 Go 模块支持，包括初始化、添加依赖等。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go <span class=nb>help</span> mod
+</span></span><span class=line><span class=cl>Go mod provides access to operations on modules.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Note that support <span class=k>for</span> modules is built into all the go commands,
+</span></span><span class=line><span class=cl>not just <span class=s1>&#39;go mod&#39;</span>. For example, day-to-day adding, removing, upgrading,
+</span></span><span class=line><span class=cl>and downgrading of dependencies should be <span class=k>done</span> using <span class=s1>&#39;go get&#39;</span>.
+</span></span><span class=line><span class=cl>See <span class=s1>&#39;go help modules&#39;</span> <span class=k>for</span> an overview of module functionality.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Usage:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	go mod &lt;command&gt; <span class=o>[</span>arguments<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>The commands are:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	download    download modules to <span class=nb>local</span> cache
+</span></span><span class=line><span class=cl>	edit        edit go.mod from tools or scripts
+</span></span><span class=line><span class=cl>	graph       print module requirement graph
+</span></span><span class=line><span class=cl>	init        initialize new module in current directory
+</span></span><span class=line><span class=cl>	tidy        add missing and remove unused modules
+</span></span><span class=line><span class=cl>	vendor      make vendored copy of dependencies
+</span></span><span class=line><span class=cl>	verify      verify dependencies have expected content
+</span></span><span class=line><span class=cl>	why         explain why packages or modules are needed
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Use <span class=s2>&#34;go help mod &lt;command&gt;&#34;</span> <span class=k>for</span> more information about a command.
+</span></span></code></pre></div><h3 id=go-mod-init><code>go mod init</code><a hidden class=anchor aria-hidden=true href=#go-mod-init>#</a></h3><p>初始化一个新模块，并在当前目录下创建go.mod文件。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ mkdir hello
+</span></span><span class=line><span class=cl>$ <span class=nb>cd</span> hello
+</span></span><span class=line><span class=cl>$ go mod init xxx.com/hello
+</span></span><span class=line><span class=cl>go: creating new go.mod: module xxx.com/hello
+</span></span><span class=line><span class=cl>$ cat go.mod
+</span></span><span class=line><span class=cl>module xxx.com/hello
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>go 1.23.9
+</span></span></code></pre></div><h3 id=go-mod-tidy><code>go mod tidy</code><a hidden class=anchor aria-hidden=true href=#go-mod-tidy>#</a></h3><p>清理未使用的依赖项，并更新go.mod文件。</p><h3 id=go-mod-download><code>go mod download</code><a hidden class=anchor aria-hidden=true href=#go-mod-download>#</a></h3><p>下载当前模块及其所有直接和间接依赖。</p><h3 id=go-mod-vendor><code>go mod vendor</code><a hidden class=anchor aria-hidden=true href=#go-mod-vendor>#</a></h3><p>将依赖项复制到vendor目录中，便于离线部署。</p><h2 id=go-test><code>go test</code><a hidden class=anchor aria-hidden=true href=#go-test>#</a></h2><p><code>go test</code>用于运行 Go 程序的测试。</p><p><code>go test</code>命令会自动读取源码目录下面名为 *_test.go 的文件，生成并运行测试用的可执行文件。</p><p>默认的情况下，不需要任何的参数，<code>go test</code>命令会自动把源码包下面所有 test 文件测试完毕，当然也可以带上参数，详情可以参考<code>go help test</code>。</p><p><code>go test -v</code>可用于打印每个测试函数的名字和运行时间。</p><p><code>go test -bench=.</code>可用于运行基准测试。</p><p><code>-run</code>对应一个正则表达式，只有测试函数名被正确匹配的测试函数才会被<code>go test</code>测试命令运行，如：<code>go test -run=^$</code></p><h2 id=go-clean><code>go clean</code><a hidden class=anchor aria-hidden=true href=#go-clean>#</a></h2><p><code>go clean</code>用于删除当前源码包里面编译生成的文件。</p><h2 id=go-fmt><code>go fmt</code><a hidden class=anchor aria-hidden=true href=#go-fmt>#</a></h2><p><code>go fmt</code>用于自动格式化 Go 源代码。</p><p>比如我们写了一个格式很糟糕的<code>test.go</code>文件，我们只需要使用<code>go fmt test.go</code>命令，就可以让 go 帮我们格式化我们的代码文件。但是我们一般很少使用这个命令，因为我们的开发工具一般都带有保存时自动格式化功能，这个功能底层其实就是调用了<code>go fmt</code>命令。</p><p>使用<code>go fmt</code>命令，更多时候是用<code>gofmt</code>，而且需要参数<code>-w</code>，否则格式化结果不会写入文件。</p><h2 id=go-vet><code>go vet</code><a hidden class=anchor aria-hidden=true href=#go-vet>#</a></h2><p><code>go vet</code>用于对 Go 代码进行静态分析，检查可能存在的错误。若代码无问题，则没有输出</p><h2 id=go-doc><code>go doc</code><a hidden class=anchor aria-hidden=true href=#go-doc>#</a></h2><p><code>go doc</code>用于查看 Go 语言标准库或你的代码库中的文档。</p><p>执行：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go doc fmt.Println
+</span></span></code></pre></div><p>输出：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>package fmt // import <span class=s2>&#34;fmt&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>func Println<span class=o>(</span>a ...any<span class=o>)</span> <span class=o>(</span>n int, err error<span class=o>)</span>
+</span></span><span class=line><span class=cl>    Println formats using the default formats <span class=k>for</span> its operands and writes to
+</span></span><span class=line><span class=cl>    standard output. Spaces are always added between operands and a newline
+</span></span><span class=line><span class=cl>    is appended. It returns the number of bytes written and any write error
+</span></span><span class=line><span class=cl>    encountered.
+</span></span></code></pre></div><h2 id=go-list><code>go list</code><a hidden class=anchor aria-hidden=true href=#go-list>#</a></h2><p><code>go list</code>命令可以查看项目的依赖，其中<code>-m</code>选项表示列出模块而不是包。</p><ul><li><code>go list -m all</code>列出当前模块及其依赖项的所有模块和版本。</li><li><code>go list -m -u all</code>列出当前模块及其依赖项的所有模块和版本，及可用的最新版本。</li></ul><h2 id=go-env><code>go env</code><a hidden class=anchor aria-hidden=true href=#go-env>#</a></h2><p><code>go env</code>用于打印 Go 的环境信息。</p><p>执行：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go env
+</span></span></code></pre></div><p>输出：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=nv>GO111MODULE</span><span class=o>=</span><span class=s1>&#39;on&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOARCH</span><span class=o>=</span><span class=s1>&#39;arm64&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOBIN</span><span class=o>=</span><span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOCACHE</span><span class=o>=</span><span class=s1>&#39;/Users/xxx/Library/Caches/go-build&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOENV</span><span class=o>=</span><span class=s1>&#39;/Users/xxx/Library/Application Support/go/env&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOEXE</span><span class=o>=</span><span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOEXPERIMENT</span><span class=o>=</span><span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOFLAGS</span><span class=o>=</span><span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOHOSTARCH</span><span class=o>=</span><span class=s1>&#39;arm64&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOHOSTOS</span><span class=o>=</span><span class=s1>&#39;darwin&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOINSECURE</span><span class=o>=</span><span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOMODCACHE</span><span class=o>=</span><span class=s1>&#39;/Users/xxx/go/1.23.9/pkg/mod&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GONOPROXY</span><span class=o>=</span><span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GONOSUMDB</span><span class=o>=</span><span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOOS</span><span class=o>=</span><span class=s1>&#39;darwin&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOPATH</span><span class=o>=</span><span class=s1>&#39;/Users/xxx/go/1.23.9&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOPRIVATE</span><span class=o>=</span><span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOPROXY</span><span class=o>=</span><span class=s1>&#39;https://goproxy.io,https://proxy.golang.org,direct&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOROOT</span><span class=o>=</span><span class=s1>&#39;/Users/xxx/.goenv/versions/1.23.9&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOSUMDB</span><span class=o>=</span><span class=s1>&#39;sum.golang.google.cn&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOTMPDIR</span><span class=o>=</span><span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOTOOLCHAIN</span><span class=o>=</span><span class=s1>&#39;auto&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOTOOLDIR</span><span class=o>=</span><span class=s1>&#39;/Users/xxx/.goenv/versions/1.23.9/pkg/tool/darwin_arm64&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOVCS</span><span class=o>=</span><span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOVERSION</span><span class=o>=</span><span class=s1>&#39;go1.23.9&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GODEBUG</span><span class=o>=</span><span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOTELEMETRY</span><span class=o>=</span><span class=s1>&#39;local&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOTELEMETRYDIR</span><span class=o>=</span><span class=s1>&#39;/Users/xxx/Library/Application Support/go/telemetry&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GCCGO</span><span class=o>=</span><span class=s1>&#39;gccgo&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOARM64</span><span class=o>=</span><span class=s1>&#39;v8.0&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>AR</span><span class=o>=</span><span class=s1>&#39;ar&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>CC</span><span class=o>=</span><span class=s1>&#39;clang&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>CXX</span><span class=o>=</span><span class=s1>&#39;clang++&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>CGO_ENABLED</span><span class=o>=</span><span class=s1>&#39;1&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOMOD</span><span class=o>=</span><span class=s1>&#39;/dev/null&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOWORK</span><span class=o>=</span><span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>CGO_CFLAGS</span><span class=o>=</span><span class=s1>&#39;-O2 -g&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>CGO_CPPFLAGS</span><span class=o>=</span><span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>CGO_CXXFLAGS</span><span class=o>=</span><span class=s1>&#39;-O2 -g&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>CGO_FFLAGS</span><span class=o>=</span><span class=s1>&#39;-O2 -g&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>CGO_LDFLAGS</span><span class=o>=</span><span class=s1>&#39;-O2 -g&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>PKG_CONFIG</span><span class=o>=</span><span class=s1>&#39;pkg-config&#39;</span>
+</span></span><span class=line><span class=cl><span class=nv>GOGCCFLAGS</span><span class=o>=</span><span class=s1>&#39;-fPIC -arch arm64 -pthread -fno-caret-diagnostics -Qunused-arguments -fmessage-length=0 -ffile-prefix-map=/var/folders/r5/g9x6_d5n4z14jk1sxp27j9ch0000gn/T/go-build4084107366=/tmp/go-build -gno-record-gcc-switches -fno-common&#39;</span>
+</span></span></code></pre></div><h2 id=go-version><code>go version</code><a hidden class=anchor aria-hidden=true href=#go-version>#</a></h2><p><code>go version</code>用于打印当前 Go 的版本信息。</p><p>执行：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ go version
+</span></span></code></pre></div><p>输出：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>go version go1.23.9 darwin/arm64
+</span></span></code></pre></div></div><footer class=post-footer><ul class=post-tags><li><a href=https://docodex.github.io/tags/golang/>Golang</a></li><li><a href=https://docodex.github.io/tags/tips/>Tips</a></li></ul><div class=breadcrumbs><a href=https://docodex.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://docodex.github.io/posts/>Posts</a>&nbsp;»&nbsp;<a href=https://docodex.github.io/posts/tech/>技术</a></div><nav class=paginav><a class=prev href=https://docodex.github.io/posts/tech/welcome-to-vim/><span class=title>« Prev</span><br><span>Welcome to Vim</span>
+</a><a class=next href=https://docodex.github.io/posts/tech/rust-cargo-cmd/><span class=title>Next »</span><br><span>Rust 常用 cargo 命令</span></a></nav><ul class=share-buttons><li><a target=_blank rel="noopener noreferrer" aria-label="share Go 常用命令 on x" href="https://x.com/intent/tweet/?text=Go%20%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4&amp;url=https%3a%2f%2fdocodex.github.io%2fposts%2ftech%2fgo-cmd%2f&amp;hashtags=Golang%2cTips"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentColor"><path d="M512 62.554V449.446C512 483.97 483.97 512 449.446 512H62.554C28.03 512 0 483.97.0 449.446V62.554C0 28.03 28.029.0 62.554.0H449.446C483.971.0 512 28.03 512 62.554zM269.951 190.75 182.567 75.216H56L207.216 272.95 63.9 436.783h61.366L235.9 310.383l96.667 126.4H456L298.367 228.367l134-153.151H371.033zM127.633 110h36.468l219.38 290.065H349.5z"/></svg></a></li><li><a target=_blank rel="noopener noreferrer" aria-label="share Go 常用命令 on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fdocodex.github.io%2fposts%2ftech%2fgo-cmd%2f&amp;title=Go%20%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4&amp;summary=Go%20%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4&amp;source=https%3a%2f%2fdocodex.github.io%2fposts%2ftech%2fgo-cmd%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentColor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg></a></li><li><a target=_blank rel="noopener noreferrer" aria-label="share Go 常用命令 on reddit" href="https://reddit.com/submit?url=https%3a%2f%2fdocodex.github.io%2fposts%2ftech%2fgo-cmd%2f&title=Go%20%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentColor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg></a></li><li><a target=_blank rel="noopener noreferrer" aria-label="share Go 常用命令 on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fdocodex.github.io%2fposts%2ftech%2fgo-cmd%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentColor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg></a></li><li><a target=_blank rel="noopener noreferrer" aria-label="share Go 常用命令 on whatsapp" href="https://api.whatsapp.com/send?text=Go%20%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4%20-%20https%3a%2f%2fdocodex.github.io%2fposts%2ftech%2fgo-cmd%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentColor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg></a></li><li><a target=_blank rel="noopener noreferrer" aria-label="share Go 常用命令 on telegram" href="https://telegram.me/share/url?text=Go%20%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4&amp;url=https%3a%2f%2fdocodex.github.io%2fposts%2ftech%2fgo-cmd%2f"><svg viewBox="2 2 28 28" height="30" width="30" fill="currentColor"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg></a></li><li><a target=_blank rel="noopener noreferrer" aria-label="share Go 常用命令 on ycombinator" href="https://news.ycombinator.com/submitlink?t=Go%20%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4&u=https%3a%2f%2fdocodex.github.io%2fposts%2ftech%2fgo-cmd%2f"><svg width="30" height="30" viewBox="0 0 512 512" fill="currentColor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554V449.446C512 483.97 483.97 512 449.446 512H62.554C28.03 512 0 483.97.0 449.446V62.554C0 28.03 28.029.0 62.554.0H449.446zM183.8767 87.9921h-62.034L230.6673 292.4508V424.0079h50.6655V292.4508L390.1575 87.9921H328.1233L256 238.2489z"/></svg></a></li></ul></footer></article></main><footer class=footer><span>DoCodeX</span> ·
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+<a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentColor"><path d="M12 6H0l6-6z"/></svg>
+</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>
